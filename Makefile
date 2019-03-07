@@ -6,18 +6,31 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/25 17:01:50 by lportay           #+#    #+#              #
-#    Updated: 2019/03/06 17:45:30 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/07 18:09:26 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: clean fclean re rules
+.PHONY: clean fclean re rules main
+
+CC=clang
+CFLAGS=-Wall -Wextra -Werror -I includes/ -L. -lfts
 
 NAME= libfts.a
 SRCDIR=src/
 OBJDIR=obj
 
 SRC=\
-	b.s\
+	isalpha.s\
+	isdigit.s\
+	isalnum.s\
+	isascii.s\
+	isprint.s\
+	toupper.s\
+	tolower.s\
+	strlen.s\
+	puts.s\
+	bzero.s\
+	strcat.s\
 
 OBJ=$(addprefix $(OBJDIR)/, $(SRC:%.s=%.o))
 
@@ -50,8 +63,10 @@ rules:
 	5. Squash Commits"
 	6. Test properly and thoroughly your project
 
-test:
-
+main:
+	$(CC) $(CFLAGS) main.c -o main
+	@./main
+	@#rm main
 
 clean:
 	$(RM) -r $(OBJDIR)
