@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/25 17:01:50 by lportay           #+#    #+#              #
-#    Updated: 2019/03/07 18:09:26 by lportay          ###   ########.fr        #
+#    Updated: 2019/03/21 14:40:28 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,17 +20,22 @@ SRCDIR=src/
 OBJDIR=obj
 
 SRC=\
-	isalpha.s\
-	isdigit.s\
-	isalnum.s\
-	isascii.s\
-	isprint.s\
-	toupper.s\
-	tolower.s\
-	strlen.s\
-	puts.s\
-	bzero.s\
-	strcat.s\
+	ft_isalpha.s\
+	ft_isdigit.s\
+	ft_isalnum.s\
+	ft_isascii.s\
+	ft_isprint.s\
+	ft_toupper.s\
+	ft_tolower.s\
+	ft_strlen.s\
+	ft_puts.s\
+	ft_bzero.s\
+	\
+#	ft_strcat.s\
+	ft_memcpy.s\
+	ft_memset.s\
+	ft_strdup.s\
+	ft_cat.s\
 
 OBJ=$(addprefix $(OBJDIR)/, $(SRC:%.s=%.o))
 
@@ -41,7 +46,7 @@ RESET="\033[0m"
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADER)
+$(NAME): $(OBJ)
 		ar rc $@ $?
 		ranlib $@
 		@echo $(GREEN)$(NAME)" Successfully created"$(RESET)
@@ -60,13 +65,13 @@ rules:
 	3. Drop Useless Libraries\n\
 	3. Norme\n\
 	4. Adequate Compilation Flags\n\
-	5. Squash Commits"
-	6. Test properly and thoroughly your project
+	5. Squash Commits\n\
+	6. Test properly and thoroughly your project"
 
-main:
-	$(CC) $(CFLAGS) main.c -o main
-	@./main
-	@#rm main
+main: $(NAME)
+	$(CC) $(CFLAGS) main.c -o test
+	@./test
+	@#rm test
 
 clean:
 	$(RM) -r $(OBJDIR)

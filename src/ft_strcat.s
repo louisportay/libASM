@@ -9,18 +9,15 @@ dest:
 	je end_dest_reached
 	inc rdi
 	jmp dest
-end_dest_reached:
-	cmp byte [rsi], 0
-	je end
-	mov rdi, [rsi]
-	inc rdi
-	inc rsi
-	jmp end_dest_reached
-end:
-	pop rdi
+;end_dest_reached:
+;	cmp byte [rsi], 0
+;	je end
+;	mov rdi, [rsi]
+;	inc rdi
+;	inc rsi
+;	jmp end_dest_reached
+;end:
 	pop rsi
+	pop rdi
 	mov rax, rdi
 	ret
-
-
-	;; DOES NOT WORK

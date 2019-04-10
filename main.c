@@ -6,7 +6,7 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 10:30:20 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/07 17:21:05 by lportay          ###   ########.fr       */
+/*   Updated: 2019/03/12 11:44:24 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,23 +127,27 @@ void	test_bzero(void)
 void	test_strcat(void)
 {
 	char a[128] = "12345678";
+	char b[128] = "9ABCDEF";
+	char *c;
 
-	ft_strcat(a, "9ABCDEF");
-	printf("%s\n", a);
+	c = ft_strcat(a, b);
+	assert(a == c);
+
+	//printf("%s\n", a);
 	//assert(strcmp(a, "123456789ABCDEF") == 0);
 }
 
 int main(void)
 {
-	test_isalpha();
-	test_isdigit();
-	test_isalnum();
-	test_isascii();
-	test_isprint();
-	test_tolower();
-	test_toupper();
-	test_strlen();
-	test_puts();
-	test_bzero();
+//	test_isalpha();
+//	test_isdigit();
+//	test_isalnum();
+//	test_isascii();
+//	test_isprint();
+//	test_tolower();
+//	test_toupper();
+//	test_strlen();
+//	test_puts();
+//	test_bzero();
 	test_strcat();
 }
