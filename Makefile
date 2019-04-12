@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/25 17:01:50 by lportay           #+#    #+#              #
-#    Updated: 2019/03/21 14:40:28 by lportay          ###   ########.fr        #
+#    Updated: 2019/04/12 17:40:09 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,7 @@ SRC=\
 	ft_strlen.s\
 	ft_puts.s\
 	ft_bzero.s\
-	\
-#	ft_strcat.s\
+	ft_strcat.s\
 	ft_memcpy.s\
 	ft_memset.s\
 	ft_strdup.s\

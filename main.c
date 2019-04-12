@@ -6,11 +6,12 @@
 /*   By: lportay <lportay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 10:30:20 by lportay           #+#    #+#             */
-/*   Updated: 2019/03/12 11:44:24 by lportay          ###   ########.fr       */
+/*   Updated: 2019/04/12 17:55:48 by lportay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>//
+#include <fcntl.h>
+#include <unistd.h>
 #include <assert.h>
 #include <signal.h>
 #include <string.h>
@@ -119,9 +120,30 @@ void	test_puts(void)
 
 void	test_bzero(void)
 {
-	char a[] = "12345678";
+	char a[] = "123456789";
+	char b[] = "123456789";
+	char c[] = "123456789";
 	ft_bzero(a, 8);
-	printf("%s\n", a);
+	assert(memcmp(a, "\0\0\0\0\0\0\0\09", 9) == 0);
+	ft_bzero(b, 0);
+	assert(memcmp(b, "123456789", 9) == 0);
+	ft_bzero(c, 9);
+	assert(memcmp(c, "\0\0\0\0\0\0\0\0\0", 9) == 0);
+}
+
+void	test_memset(void)
+{
+	char a[] = "123456789";
+	char b[] = "123456789";
+	char c[] = "123456789";
+	ft_memset(a, 'A', 8);
+	assert(memcmp(a, "AAAAAAAA9", 9) == 0);
+
+	ft_memset(b, 'B', 0);
+	assert(memcmp(b, "123456789", 9) == 0);
+
+	ft_memset(c, 'C', 9);
+	assert(memcmp(c, "CCCCCCCCC", 9) == 0);
 }
 
 void	test_strcat(void)
@@ -132,13 +154,59 @@ void	test_strcat(void)
 
 	c = ft_strcat(a, b);
 	assert(a == c);
-
-	//printf("%s\n", a);
-	//assert(strcmp(a, "123456789ABCDEF") == 0);
+	assert(strcmp(c, "123456789ABCDEF") == 0);
 }
 
-int main(void)
+void	test_memcpy(void)
 {
+	char a[128] = "12345678";
+	char b[128] = "9ABCDEF";
+	char d[128] = "GHIJKL";
+	char e[100];
+	char f[100];
+
+	char *c;
+
+	memset(e, 65, 100);
+	memset(f, 66, 100);
+	c = ft_memcpy(a, b, 4);
+	assert(a == c);
+	assert(strcmp(c, "9ABC5678") == 0);
+	c = ft_memcpy(b, d, 0);
+	assert(strcmp(c, "9ABCDEF") == 0);
+	c = ft_memcpy(b, d, 10);
+	assert(strcmp(c, "GHIJKL") == 0);
+	ft_memcpy(e, f, 100);
+	assert(strcmp(e, f) == 0);
+}
+
+void	test_strdup(void)
+{
+	char *a, *b, *c;
+
+	a = ft_strdup("Hello World");
+	assert(strcmp(a, "Hello World") == 0);
+	b = ft_strdup("");
+	assert(strcmp(b, "") == 0);
+	c = ft_strdup("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	assert(strcmp(c, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx") == 0);
+	free(a);
+	free(b);
+	free(c);
+}
+
+void	test_cat(char *exec)
+{
+	ft_cat(STDIN_FILENO);
+	ft_cat(open(__FILE__, O_RDONLY));
+	ft_cat(open(exec, O_RDONLY));
+	ft_cat(-42);
+}
+
+int main(int ac, char **av)
+{
+	(void)ac;
+	(void)av;
 //	test_isalpha();
 //	test_isdigit();
 //	test_isalnum();
@@ -149,5 +217,9 @@ int main(void)
 //	test_strlen();
 //	test_puts();
 //	test_bzero();
-	test_strcat();
+//	test_memset();
+//	test_strcat();
+//	test_memcpy();
+//	test_strdup();
+	test_cat(av[0]);
 }

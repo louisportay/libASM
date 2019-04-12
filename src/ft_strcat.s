@@ -2,22 +2,26 @@ SECTION .text
 	global _ft_strcat
 
 _ft_strcat:
-	push rdi
-	push rsi
-dest:
-	cmp byte [rdi], 0
-	je end_dest_reached
-	inc rdi
-	jmp dest
-;end_dest_reached:
-;	cmp byte [rsi], 0
-;	je end
-;	mov rdi, [rsi]
-;	inc rdi
-;	inc rsi
-;	jmp end_dest_reached
-;end:
-	pop rsi
-	pop rdi
+	push rbx
 	mov rax, rdi
+	mov rbx, rsi
+	xor rcx, rcx
+
+iter:
+	cmp byte[rdi], 0
+	je copy
+	inc rdi
+	jmp iter
+
+copy:
+	cmp byte [rbx], 0
+	je end
+	inc rbx
+	inc rcx
+	jmp copy
+
+end:
+	inc rcx
+	rep movsb
+	pop rbx
 	ret

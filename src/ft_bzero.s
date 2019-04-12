@@ -2,12 +2,14 @@ SECTION .text
 	global _ft_bzero
 
 _ft_bzero:
+	push rcx
+	xor rcx, rcx
 start:
-	cmp rsi, 0
+	cmp rsi, rcx
 	je end
-	mov byte [rdi], 0
-	inc rdi
-	dec rsi
+	mov byte [rdi + rcx], 0
+	inc rcx
 	jmp start
 end:
+	pop rcx
 	ret
