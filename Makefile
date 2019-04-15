@@ -6,7 +6,7 @@
 #    By: lportay <lportay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/25 17:01:50 by lportay           #+#    #+#              #
-#    Updated: 2019/04/12 17:40:09 by lportay          ###   ########.fr        #
+#    Updated: 2019/04/15 11:11:52 by lportay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,9 +68,9 @@ rules:
 	6. Test properly and thoroughly your project"
 
 main: $(NAME)
-	$(CC) $(CFLAGS) main.c -o test
-	@./test
-	@#rm test
+	$(CC) $(CFLAGS) main.c -o main
+	@./main
+	@rm main
 
 clean:
 	$(RM) -r $(OBJDIR)
